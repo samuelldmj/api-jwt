@@ -1,7 +1,7 @@
 <?php
 
 // Include or require the Database class file
-require 'Database.php'; // Adjust the path as needed
+require 'Database.php'; 
 
 try {
     // Instantiate the Database class
