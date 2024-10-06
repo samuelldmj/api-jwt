@@ -32,8 +32,7 @@ class Database
             // Set error mode to exception for easier error handling
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            // Optionally, you can return a success message
-            // echo "---SUCCESSFUL CONNECTION---";
+            
             return $this->conn;
         } catch (PDOException $e) {
             // Handle error appropriately

@@ -58,6 +58,21 @@ class Users
          return [];
      }
 
+     public function check_login(){
+      $sql_query = "SELECT * FROM {$this->users_tbl} WHERE user_email = ? ";
+ 
+      $stmt = $this->conn->prepare($sql_query);
+
+      $stmt->bindValue(1, $this->user_email);
+
+      if ($stmt->execute()) {
+          $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+          return $data;
+      }
+
+      return [];
+     }
 
   }
 
