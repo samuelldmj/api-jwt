@@ -29,19 +29,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user_obj->user_email = $data->user_email;
         $user_obj->user_password = password_hash($data->user_password, PASSWORD_DEFAULT);
 
-        if ($user_obj->create_user()) {
-            http_response_code(200);
-            echo json_encode([
-                'status' => 1,
-                'message' => "User has been created"
-            ]);
-        } else {
+        //checking if the email already exist
+        $check_email = $user_obj->check_email();
+        if(!empty($check_email)){
+            // some data we have insert should not go.
             http_response_code(500);
             echo json_encode([
                 'status' => 0,
-                'message' => 'Failed to Save user data'
+                'message' => 'Failed to Save user data, User Email already exist'
             ]);
+        }else{
+            if ($user_obj->create_user()) {
+                http_response_code(200);
+                echo json_encode([
+                    'status' => 1,
+                    'message' => "User has been created"
+                ]);
+            } else {
+                http_response_code(500);
+                echo json_encode([
+                    'status' => 0,
+                    'message' => 'Failed to Save user data'
+                ]);
+            }
         }
+        
     } else {
         http_response_code(500);
         echo json_encode([

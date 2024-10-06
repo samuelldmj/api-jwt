@@ -43,11 +43,11 @@ class Users
  
      public function check_email()
      {
-         $sql_query = "SELECT * FROM " . $this->users_tbl . "WHERE email = ? ";
+         $sql_query = "SELECT * FROM {$this->users_tbl} WHERE user_email = ? ";
  
          $stmt = $this->conn->prepare($sql_query);
  
-         $stmt->bindValue(1, $this->email);
+         $stmt->bindValue(1, $this->user_email);
  
          if ($stmt->execute()) {
              $data = $stmt->fetch(PDO::FETCH_ASSOC);
