@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $iss = 'localhost';
                 $iat = time();
                 $nbf = $iat + 10;
-                $exp = $iat + 30;
+                $exp = $iat + 60;
                 $aud = 'myusers';
                 $user_arr_data = [
                     'id' => $user_data['id'],
