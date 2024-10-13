@@ -74,6 +74,31 @@ class Users
       return []; 
      }
 
+     //creating projects
+     public function create_project(){
+        $sql_query = "INSERT INTO {$this->project_tbl}
+         (user_id, project_name, project_description, project_status) VALUES (?,?,?,?) ";
+
+         $stmt = $this->conn->prepare($sql_query);
+         
+         //sanitize
+         $this->project_name = htmlspecialchars(string: strip_tags($this->project_name));
+         $this->project_description = htmlspecialchars(string: strip_tags($this->project_description));
+         $this->project_status = htmlspecialchars(string: strip_tags($this->project_status));
+
+         //bind value
+         $stmt->bindValue(2, $this->project_name);
+         $stmt->bindValue(3, $this->project_description);
+         $stmt->bindValue(4, $this->project_status);
+         $stmt->bindValue(1, $this->user_id, PDO::PARAM_INT);
+
+        if( $stmt->execute() ){
+            return true;
+        }
+
+            return false;
+     }
+
      
 
   }

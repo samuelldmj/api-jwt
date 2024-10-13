@@ -1,5 +1,8 @@
 <?php
 
+/*
+Passing the API and JWt token from one app to another app
+*/
 use \Firebase\JWT\JWT;
 use \Firebase\JWT\Key; // Import the Key class
 
@@ -38,11 +41,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     //using null coalescing 
     $data->jwt = $all_headers['Authorization'] ?? null;
-   // Check if JWT is present
+
+   // Check if JWT is present in the body of the page as an input
    if(!empty($data->jwt)) {
-    $secret_key = 'owt123';
+  
 
     try {
+
+          $secret_key = 'owt123';
         // Use Key object to specify algorithm and decode the JWT
         $decoded_jwt = JWT::decode($data->jwt, new Key($secret_key, 'HS512'));
         
