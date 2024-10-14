@@ -99,13 +99,35 @@ class Users
             return false;
      }
 
-     
+     public function display_all_projects(){
+        $sql_query = "SELECT * FROM {$this->project_tbl} ORDER BY id DESC";
+
+        $stmt = $this->conn->prepare($sql_query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function display_single_user_project(){
+        $sql_query = "SELECT * {$this->project_tbl} WHERE project_name = ? ";   
+        $stmt = $this->conn->prepare($sql_query);
+    }
+
+    public function get_user_all_projects(){
+        $sql_query = "SELECT * FROM {$this->project_tbl} WHERE user_id = ? ORDER BY id DESC";
+
+        $stmt = $this->conn->prepare($sql_query);
+
+        $stmt->bindValue(1, $this->user_id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   }
 
 
 
-
+}
 
 
 
